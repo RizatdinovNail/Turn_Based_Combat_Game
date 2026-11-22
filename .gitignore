@@ -1,0 +1,38 @@
+# Build directories & CMake artifacts
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+compile_commands.json
+Makefile
+*.ninja
+.ninja_deps
+.ninja_log
+
+# Fetched dependencies (raylib via FetchContent)
+_deps/
+
+# Compiled binaries & object files
+*.exe
+*.out
+*.app
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.pdb
+*.ilk
+
+# VS Code local cache & generated configs
+.vscode/ipch/
+.vscode/.browse.c_cpp.db*
+.vscode/*.VC.db
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini

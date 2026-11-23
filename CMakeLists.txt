@@ -17,16 +17,22 @@ FetchContent_MakeAvailable(raylib)
 
 file(GLOB_RECURSE PROJECT_SOURCES CONFIGURE_DEPENDS
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/game/*.c"
 )
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/game"
+)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/assets
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
+        "${CMAKE_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets"
 )
 
 if(WIN32)

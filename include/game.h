@@ -1,5 +1,7 @@
 #pragma once
-#include "tiles.h"
+#include <raylib.h>
+#include "tiles.cpp"
+#include <vector>
 
 class Game
 {
@@ -13,13 +15,13 @@ private:
     // FUNCTIONS
     void InitMap();
     Model GetRandomTile();
-    std::vector<Model> CreateMap();
+    std::vector<Tile> GetAllTiles();
+    std::vector<size_t> GenerateMap();
+
     // VARIABLES
-    Tiles tiles;
-    std::vector<Model> allTiles;
-    Texture texture;
-    std::vector<Model> map;
     float grid_offset;
     int grid_size;
     float grid_spacing;
+    std::vector<size_t> map;
+    std::vector<Tile> tilePrototypes;
 };

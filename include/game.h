@@ -24,4 +24,5 @@ private:
     float grid_spacing;
     std::vector<size_t> map;
     std::vector<Tile> tilePrototypes;
+    Texture texture;
 };

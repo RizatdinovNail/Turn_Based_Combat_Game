@@ -9,6 +9,7 @@ Game::Game(int gridSize, float gridSpacing)
     this->grid_spacing = gridSpacing;
     this->grid_offset = gridSize / 2 * gridSpacing - gridSpacing / 2;
     map = GenerateMap();
+    texture = LoadTexture("assets/textures/dungeon_texture.png");
 }
 
 void Game::Run()
@@ -47,6 +48,7 @@ void Game::InitMap()
                 tile_size = 1.3f;
                 break;
             }
+            tilePrototypes[protoIdx].AddTexture(texture);
             DrawModel(tilePrototypes[protoIdx].model, Vector3{x, 0.0f, z}, tile_size, WHITE);
         }
     }

@@ -23,6 +23,12 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
 
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/assets
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
+)
+
 if(WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE winmm)
 endif()

@@ -20,6 +20,4 @@ void Tile::Unload()
         UnloadModel(model);
         model = {};
     }
-
-    UnloadTexture(texture);
 }

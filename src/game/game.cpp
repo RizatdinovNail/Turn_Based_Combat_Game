@@ -115,20 +115,21 @@ void Game::HandleInput()
     switch (keyPressed)
     {
     case KEY_DOWN:
-        if (isInsideGrid(humanPlayer.position.z))
+        if (isInsideGrid(humanPlayer.position.z + grid_spacing))
             humanPlayer.MoveDown(grid_spacing);
         break;
     case KEY_UP:
-        if (isInsideGrid(humanPlayer.position.z))
+        if (isInsideGrid(humanPlayer.position.z - grid_spacing))
             humanPlayer.MoveUp(grid_spacing);
         break;
     case KEY_LEFT:
-        if (isInsideGrid(humanPlayer.position.x))
+        if (isInsideGrid(humanPlayer.position.x - grid_spacing))
             humanPlayer.MoveLeft(grid_spacing);
         break;
     case KEY_RIGHT:
-        if (isInsideGrid(humanPlayer.position.x))
-            break;
+        if (isInsideGrid(humanPlayer.position.x + grid_spacing))
+            humanPlayer.MoveRight(grid_spacing);
+        break;
     default:
         break;
     }
@@ -136,8 +137,8 @@ void Game::HandleInput()
 
 bool Game::isInsideGrid(float position)
 {
-    if (position != -((grid_spacing * grid_size / 2) - grid_spacing / 2) &&
-        position != ((grid_spacing * grid_size / 2) - grid_spacing / 2))
+    if (position >= -((grid_spacing * grid_size / 2) - grid_spacing / 2) &&
+        position <= ((grid_spacing * grid_size / 2) - grid_spacing / 2))
     {
         return true;
     }
@@ -155,5 +156,6 @@ void Game::Stop()
     UnloadModel(aiPlayer.model);
     tilePrototypes.clear();
     UnloadTexture(texture);
+    UnloadTexture(player_texture);
     map.clear();
 }

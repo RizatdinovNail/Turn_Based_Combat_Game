@@ -13,6 +13,7 @@ public:
     int id;
     Model model;
     Vector3 position;
+    int HP = 20;
 
 private:
 };

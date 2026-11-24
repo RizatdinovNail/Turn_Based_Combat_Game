@@ -54,6 +54,7 @@ void Game::InitMap()
             }
             tilePrototypes[protoIdx].AddTexture(texture);
             DrawModel(tilePrototypes[protoIdx].model, Vector3{x, 0.0f, z}, tile_size, WHITE);
+            tilePrototypes[protoIdx].position = Vector3{x + grid_spacing, 0.0f, z + grid_spacing};
         }
     }
 }
@@ -63,19 +64,34 @@ void Game::InitPlayers()
     const float PLAYER_POSITION = grid_spacing * grid_size / 2;
 
     humanPlayer = HumanPlayer();
-    humanPlayer.position = Vector3{grid_spacing / 2, 0.0f, PLAYER_POSITION - grid_spacing / 2};
-
+    humanPlayer.DEFAULT_POSITION = Vector3{grid_spacing / 2, 0.0f, PLAYER_POSITION - grid_spacing / 2};
+    humanPlayer.position = humanPlayer.DEFAULT_POSITION;
+    humanPlayer.hp = humanPlayer.DEFAULT_HP;
+    humanPlayer.ac = humanPlayer.DEFAULT_AC;
+    humanPlayer.speed = humanPlayer.DEFAULT_SPEED;
     for (int i = 0; i < humanPlayer.model.materialCount; i++)
     {
         SetMaterialTexture(&humanPlayer.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
     }
 
     aiPlayer = AIPlayer();
-    aiPlayer.position = Vector3(grid_spacing / 2, 0.0f, -PLAYER_POSITION + grid_spacing / 2);
+    aiPlayer.DEFAULT_POSITION = Vector3(grid_spacing / 2, 0.0f, -PLAYER_POSITION + grid_spacing / 2);
+    aiPlayer.position = aiPlayer.DEFAULT_POSITION;
+    aiPlayer.hp = aiPlayer.DEFAULT_HP;
+    aiPlayer.ac = aiPlayer.DEFAULT_AC;
+    aiPlayer.speed = aiPlayer.DEFAULT_SPEED;
     for (int i = 0; i < aiPlayer.model.materialCount; i++)
     {
         SetMaterialTexture(&aiPlayer.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
     }
+}
+
+void Game::SetUpPlayer(Player player)
+{
+    player.position = player.DEFAULT_POSITION;
+    player.hp = player.DEFAULT_HP;
+    player.ac = player.DEFAULT_AC;
+    player.speed = player.DEFAULT_SPEED;
 }
 
 void Game::ShowPlayers()
@@ -115,27 +131,38 @@ void Game::HandleInput()
     switch (keyPressed)
     {
     case KEY_DOWN:
-        if (isInsideGrid(humanPlayer.position.z + grid_spacing))
+        if (isValid(humanPlayer.position.z + grid_spacing))
+        {
             humanPlayer.MoveDown(grid_spacing);
+        }
+
         break;
     case KEY_UP:
-        if (isInsideGrid(humanPlayer.position.z - grid_spacing))
+        if (isValid(humanPlayer.position.z - grid_spacing))
+        {
             humanPlayer.MoveUp(grid_spacing);
+        }
+
         break;
     case KEY_LEFT:
-        if (isInsideGrid(humanPlayer.position.x - grid_spacing))
+        if (isValid(humanPlayer.position.x - grid_spacing))
+        {
             humanPlayer.MoveLeft(grid_spacing);
+        }
+
         break;
     case KEY_RIGHT:
-        if (isInsideGrid(humanPlayer.position.x + grid_spacing))
+        if (isValid(humanPlayer.position.x + grid_spacing))
+        {
             humanPlayer.MoveRight(grid_spacing);
+        }
         break;
     default:
         break;
     }
 }
 
-bool Game::isInsideGrid(float position)
+bool Game::isValid(float position)
 {
     if (position >= -((grid_spacing * grid_size / 2) - grid_spacing / 2) &&
         position <= ((grid_spacing * grid_size / 2) - grid_spacing / 2))

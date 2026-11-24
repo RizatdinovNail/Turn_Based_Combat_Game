@@ -8,6 +8,7 @@ public:
         id = 1;
         model = LoadModel("assets/models/floor_dirt_small_A.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -19,6 +20,7 @@ public:
         id = 2;
         model = LoadModel("assets/models/floor_dirt_small_B.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -30,6 +32,7 @@ public:
         id = 3;
         model = LoadModel("assets/models/floor_dirt_small_C.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -41,6 +44,7 @@ public:
         id = 4;
         model = LoadModel("assets/models/floor_dirt_small_D.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -52,6 +56,7 @@ public:
         id = 5;
         model = LoadModel("assets/models/floor_tile_big_spikes.gltf");
         damage = 5;
+        position;
     }
 };
 
@@ -63,6 +68,7 @@ public:
         id = 6;
         model = LoadModel("assets/models/floor_tile_small_broken_A.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -74,6 +80,7 @@ public:
         id = 7;
         model = LoadModel("assets/models/floor_tile_small_broken_B.gltf");
         damage = 0;
+        position;
     }
 };
 
@@ -85,5 +92,6 @@ public:
         id = 8;
         model = LoadModel("assets/models/floor_tile_small.gltf");
         damage = 0;
+        position;
     }
 };

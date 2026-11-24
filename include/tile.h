@@ -7,10 +7,12 @@ public:
     Tile();
     void Unload();
     void AddTexture(Texture);
+
     int id;
     Model model;
     Texture texture;
     int damage;
+    Vector3 position;
 
 private:
 };

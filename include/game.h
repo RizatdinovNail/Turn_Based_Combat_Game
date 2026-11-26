@@ -17,7 +17,7 @@ private:
     void InitMap();
     void InitPlayers();
     void ShowPlayers();
-    void SetUpPlayer(Player);
+    void SetUpPlayer(Player &);
     Model GetRandomTile();
     std::vector<Tile> GetAllTiles();
     std::vector<size_t> GenerateMap();

@@ -3,6 +3,7 @@
 #include "playerClass.h"
 #include "consumable.h"
 #include <map>
+#include "playerState.h"
 
 class Player
 {
@@ -33,7 +34,12 @@ public:
     PlayerClass player_class;
     std::map<Consumable, int> inventory;
 
+    void setState(PlayerState &newState);
+    void toggle();
+    inline PlayerState *getCurrentState const {return currentState};
+
 private:
     int RollDice(int);
     bool EnoughMovement();
+    PlayerState currentState;
 };

@@ -2,6 +2,7 @@
 #include <random>
 #include "game.h"
 #include <vector>
+#include <string>
 
 Game::Game(int gridSize, float gridSpacing)
 {
@@ -62,36 +63,25 @@ void Game::InitMap()
 void Game::InitPlayers()
 {
     const float PLAYER_POSITION = grid_spacing * grid_size / 2;
-
     humanPlayer = HumanPlayer();
-    humanPlayer.DEFAULT_POSITION = Vector3{grid_spacing / 2, 0.0f, PLAYER_POSITION - grid_spacing / 2};
-    humanPlayer.position = humanPlayer.DEFAULT_POSITION;
-    humanPlayer.hp = humanPlayer.DEFAULT_HP;
-    humanPlayer.ac = humanPlayer.DEFAULT_AC;
-    humanPlayer.speed = humanPlayer.DEFAULT_SPEED;
-    for (int i = 0; i < humanPlayer.model.materialCount; i++)
-    {
-        SetMaterialTexture(&humanPlayer.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
-    }
+    humanPlayer.DEFAULT_POSITION = Vector3(grid_spacing / 2, 0.0f, PLAYER_POSITION - grid_spacing / 2);
+    SetUpPlayer(humanPlayer);
 
     aiPlayer = AIPlayer();
     aiPlayer.DEFAULT_POSITION = Vector3(grid_spacing / 2, 0.0f, -PLAYER_POSITION + grid_spacing / 2);
-    aiPlayer.position = aiPlayer.DEFAULT_POSITION;
-    aiPlayer.hp = aiPlayer.DEFAULT_HP;
-    aiPlayer.ac = aiPlayer.DEFAULT_AC;
-    aiPlayer.speed = aiPlayer.DEFAULT_SPEED;
-    for (int i = 0; i < aiPlayer.model.materialCount; i++)
-    {
-        SetMaterialTexture(&aiPlayer.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
-    }
+    SetUpPlayer(aiPlayer);
 }
 
-void Game::SetUpPlayer(Player player)
+void Game::SetUpPlayer(Player &player)
 {
     player.position = player.DEFAULT_POSITION;
     player.hp = player.DEFAULT_HP;
     player.ac = player.DEFAULT_AC;
     player.speed = player.DEFAULT_SPEED;
+    for (int i = 0; i < player.model.materialCount; i++)
+    {
+        SetMaterialTexture(&player.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
+    }
 }
 
 void Game::ShowPlayers()

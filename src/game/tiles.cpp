@@ -55,7 +55,7 @@ public:
     {
         id = 5;
         model = LoadModel("assets/models/floor_tile_big_spikes.gltf");
-        damage = 5;
+        damage = 10;
         position;
     }
 };

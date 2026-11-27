@@ -3,6 +3,7 @@
 #include "game.h"
 #include <vector>
 #include <string>
+#include "concretePlayerStates.h"
 
 Game::Game(int gridSize, float gridSpacing)
 {
@@ -66,6 +67,7 @@ void Game::InitPlayers()
     humanPlayer = HumanPlayer();
     humanPlayer.DEFAULT_POSITION = Vector3(grid_spacing / 2, 0.0f, PLAYER_POSITION - grid_spacing / 2);
     SetUpPlayer(humanPlayer);
+    humanPlayer.setState(Play::getInstance());
 
     aiPlayer = AIPlayer();
     aiPlayer.DEFAULT_POSITION = Vector3(grid_spacing / 2, 0.0f, -PLAYER_POSITION + grid_spacing / 2);
@@ -78,6 +80,7 @@ void Game::SetUpPlayer(Player &player)
     player.hp = player.DEFAULT_HP;
     player.ac = player.DEFAULT_AC;
     player.speed = player.DEFAULT_SPEED;
+    player.action_points = player.player_class.DEFAULT_ACTION_POINTS;
     for (int i = 0; i < player.model.materialCount; i++)
     {
         SetMaterialTexture(&player.model.materials[i], MATERIAL_MAP_DIFFUSE, player_texture);
@@ -121,32 +124,39 @@ void Game::HandleInput()
     switch (keyPressed)
     {
     case KEY_DOWN:
-        if (isValid(humanPlayer.position.z + grid_spacing))
+        if (isValid(humanPlayer.position.z + grid_spacing) && humanPlayer.getCurrentState() == &Play::getInstance())
         {
             humanPlayer.MoveDown(grid_spacing);
         }
 
         break;
     case KEY_UP:
-        if (isValid(humanPlayer.position.z - grid_spacing))
+        if (isValid(humanPlayer.position.z - grid_spacing) && humanPlayer.getCurrentState() == &Play::getInstance())
         {
             humanPlayer.MoveUp(grid_spacing);
         }
 
         break;
     case KEY_LEFT:
-        if (isValid(humanPlayer.position.x - grid_spacing))
+        if (isValid(humanPlayer.position.x - grid_spacing) && humanPlayer.getCurrentState() == &Play::getInstance())
         {
             humanPlayer.MoveLeft(grid_spacing);
         }
 
         break;
     case KEY_RIGHT:
-        if (isValid(humanPlayer.position.x + grid_spacing))
+        if (isValid(humanPlayer.position.x + grid_spacing) && humanPlayer.getCurrentState() == &Play::getInstance())
         {
             humanPlayer.MoveRight(grid_spacing);
         }
         break;
+    case KEY_SPACE:
+        if (humanPlayer.getCurrentState() == &Play::getInstance())
+        {
+            humanPlayer.setState(Pass::getInstance());
+            humanPlayer.toggle();
+            aiPlayer.setState(Play::getInstance());
+        }
     default:
         break;
     }

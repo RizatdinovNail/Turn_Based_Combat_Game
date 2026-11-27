@@ -6,7 +6,7 @@ class PlayerClass
 {
 public:
     // PlayerClass();
-    int action_points;
+    int DEFAULT_ACTION_POINTS;
 
     std::vector<Attack> attacks;
 

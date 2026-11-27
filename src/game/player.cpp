@@ -1,9 +1,12 @@
 #include "player.h"
 #include <random>
 #include <iostream>
+#include "concretePlayerStates.h"
 
 Player::Player()
 {
+    currentState = &Wait::getInstance();
+    currentState->enter(this);
 }
 
 void Player::MoveDown(float gridSpacing)
@@ -48,7 +51,7 @@ void Player::Heal(int health)
     hp += health;
 }
 
-void Player::Attack(Player enemy, int attack_id)
+void Player::Attack(Player &enemy, int attack_id)
 {
     int dice_result = RollDice(20);
     if (dice_result >= enemy.ac)
@@ -78,4 +81,16 @@ bool Player::EnoughMovement()
     }
 
     return true;
+}
+
+void Player::setState(PlayerState &newState)
+{
+    currentState->exit(this);
+    currentState = &newState;
+    currentState->enter(this);
+}
+
+void Player::toggle()
+{
+    currentState->toggle(this);
 }

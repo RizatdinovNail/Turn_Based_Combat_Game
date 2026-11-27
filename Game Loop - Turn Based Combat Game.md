@@ -3,8 +3,8 @@ Game Loop - Turn Based Combat Game
 1. ~~Grid~~
 2. ~~Display Models on the Grid~~
 3. ~~Create Random floor cells (With damage, normal)~~
-4. Create Player
-5. Create Turn Based Combat
+4. ~~Create Player~~
+5. ~~Create Turn Based Combat~~
 6. Create Action Economy
 7. Create Actions (Attack, Move, Jump, Use Consumable)
 8. Create Spells

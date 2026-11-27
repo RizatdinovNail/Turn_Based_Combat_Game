@@ -5,6 +5,8 @@
 #include <map>
 #include "playerState.h"
 
+class PlayerState;
+
 class Player
 {
 public:
@@ -14,7 +16,7 @@ public:
     void MoveRight(float);
     void MoveLeft(float);
     void ReciveDamage(int);
-    void Attack(Player, int);
+    void Attack(Player &, int);
     void UseConsumable();
     void Heal(int);
 
@@ -30,16 +32,17 @@ public:
     int ac;
     int speed;
     Vector3 position;
+    int action_points;
 
     PlayerClass player_class;
     std::map<Consumable, int> inventory;
 
     void setState(PlayerState &newState);
     void toggle();
-    inline PlayerState *getCurrentState const {return currentState};
+    inline PlayerState *getCurrentState() const { return currentState; }
 
 private:
     int RollDice(int);
     bool EnoughMovement();
-    PlayerState currentState;
+    PlayerState *currentState;
 };
